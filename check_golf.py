@@ -1,15 +1,18 @@
-import os
 import requests
 
-TOKEN = os.environ["BOT_TOKEN"]
-CHAT_ID = os.environ["CHAT_ID"]
+URL = "https://www.kscgolf.org.hk/eng/golf/golf-bookings/reservation-status/?d=2026-11-29"
 
-r = requests.post(
-    f"https://api.telegram.org/bot{TOKEN}/sendMessage",
-    data={
-        "chat_id": CHAT_ID,
-        "text": "✅ GitHub Telegram Test"
-    }
+headers = {
+    "User-Agent": "Mozilla/5.0"
+}
+
+resp = requests.get(
+    URL,
+    headers=headers,
+    timeout=30
 )
 
-print(r.text)
+print("Status Code:", resp.status_code)
+print("Final URL:", resp.url)
+
+print(resp.text[:1000])
